@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  onboarding_dude_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV}
+    user: node
+    tty: true
+    stdin_open: true
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - onboarding-network
+    volumes:
+      - .:/home/node/workspace/onboarding_dude
+
+  onboarding_dude_db:
+    image: postgres:13
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - ${DB_PORT}:5432
+    networks:
+      - onboarding-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  onboarding-network:
+    driver: bridge
+
+volumes:
+  pgdata:
