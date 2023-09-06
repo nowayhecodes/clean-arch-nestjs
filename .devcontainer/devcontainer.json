@@ -1,6 +1,6 @@
 {
   "name": "Onboarding Project",
   "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
-  "service": "lush_api",
+  "service": "onboarding_dude_api",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
