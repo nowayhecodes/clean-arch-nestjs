@@ -13,9 +13,10 @@ import { User } from './domain/entities/user.entity';
 import { CreateUserDto } from './application/dtos/createUser.dto';
 import { UpdateUserDto } from './application/dtos/updateUser.dto';
 
+
 @Controller('users')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get()
   getUser(): Promise<User[]> {
@@ -23,8 +24,8 @@ export class AppController {
   }
 
   @Get(':id')
-  getUserById(@Param() {id}: {id: string}): Promise<User> {    
-    return this.appService.findById(parseInt(id, 10));
+  getUserById(@Param('id') id: string): Promise<User> {
+    return this.appService.findById(+id);
   }
 
   @Post()
@@ -36,9 +37,9 @@ export class AppController {
   @Patch(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
   updateUser(
-    @Param() id: string,
+    @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
-    return this.appService.updateUser(updateUserDto);
+    return this.appService.updateUser(+id, updateUserDto);
   }
 }

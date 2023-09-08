@@ -25,7 +25,8 @@ export class AppService {
     return this.userRepository.save(user);
   }
 
-  async updateUser(user: UpdateUserDto) {
-    return this.userRepository.save(user);
+  async updateUser(id: number, user: UpdateUserDto) {
+    await this.userRepository.update({ id }, user)
+    return await this.findById(id)
   }
 }
