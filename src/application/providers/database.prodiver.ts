@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { DataSource } from 'typeorm';
 
 export const databaseProvider = [
@@ -11,9 +12,9 @@ export const databaseProvider = [
         username: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
-        entities: [`src/**/*.entity.ts`],
+        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
         migrations: [`src/migration/*.ts`],
-        synchronize: false,
+        synchronize: true,
         logging: true,
         applicationName: 'Onboarding Dude',
       });

@@ -29,7 +29,7 @@ export class Address {
   @Column()
   zipcode: string;
 
-  @OneToOne(() => Recipient, (recipient) => recipient.id)
+  @OneToOne(() => Recipient, (recipient) => recipient.id, { cascade: ['insert', 'update'] })
   recipient: Recipient;
 
   @CreateDateColumn({ name: 'createdAt' })

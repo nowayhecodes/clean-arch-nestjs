@@ -12,7 +12,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Address } from 'src/domain/entities/address.entity';
 import { Transform } from 'class-transformer';
 
-export class createUserDto {
+export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()

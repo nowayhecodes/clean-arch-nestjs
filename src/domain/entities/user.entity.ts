@@ -27,8 +27,8 @@ export class User {
   @Column()
   document: string;
 
-  @OneToMany(() => Address, (address) => address.user)
-  addresses: Address[];
+  @OneToMany(() => Address, (address) => address.user, { cascade: ['insert', 'update'] })
+  addresses?: Address[];
 
   @CreateDateColumn({ name: 'createdAt' })
   createdAt: Date;
