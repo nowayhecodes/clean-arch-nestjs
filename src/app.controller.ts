@@ -23,8 +23,8 @@ export class AppController {
   }
 
   @Get(':id')
-  getUserById(@Param() id: string): Promise<User> {
-    return this.appService.findById(+id);
+  getUserById(@Param() {id}: {id: string}): Promise<User> {    
+    return this.appService.findById(parseInt(id, 10));
   }
 
   @Post()

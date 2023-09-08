@@ -7,37 +7,45 @@ import {
   DeleteDateColumn,
   ManyToOne,
   OneToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { User } from './user.entity';
 import { Recipient } from './recipient.entity';
 
-@Entity()
+@Entity("address", { schema: "public" })
 export class Address {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 
-  @ManyToOne(() => User, (user) => user.addresses)
-  user: User;
-
-  @Column()
+  @Column("character varying", { name: "address1" })
   address1: string;
 
-  @Column()
+  @Column("character varying", { name: "address2" })
   address2: string;
 
-  @Column()
+  @Column("character varying", { name: "zipcode" })
   zipcode: string;
 
-  @OneToOne(() => Recipient, (recipient) => recipient.id, { cascade: ['insert', 'update'] })
-  recipient: Recipient;
-
-  @CreateDateColumn({ name: 'createdAt' })
+  @Column("timestamp without time zone", {
+    name: "createdAt",
+    default: () => "now()",
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updatedAt' })
+  @Column("timestamp without time zone", {
+    name: "updatedAt",
+    default: () => "now()",
+  })
   updatedAt: Date;
 
-  @DeleteDateColumn({ name: 'deleteAt' })
-  deleteAt: Date;
+  @Column("timestamp without time zone", { name: "deleteAt", nullable: true })
+  deleteAt: Date | null;
+
+  @ManyToOne(() => User, (user) => user.addresses)
+  @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
+  user: User;
+
+  @OneToOne(() => Recipient, (recipient) => recipient.address)
+  recipient: Recipient;
 }

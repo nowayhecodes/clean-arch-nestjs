@@ -15,16 +15,17 @@ export class AppService {
   }
 
   async findById(id: number): Promise<User> {
-    return this.userRepository.findOneByOrFail({ id });
+    return this.userRepository.createQueryBuilder('user')
+      .leftJoinAndSelect('address', 'address', 'user.id = address.userId')
+      .where({ id })
+      .getOneOrFail()
   }
 
   async createUser(user: CreateUserDto) {
-    const userData = this.userRepository.create(user)
-    return this.userRepository.save(userData);
+    return this.userRepository.save(user);
   }
 
   async updateUser(user: UpdateUserDto) {
-    const userData = this.userRepository.create(user)
-    return this.userRepository.save(userData);
+    return this.userRepository.save(user);
   }
 }

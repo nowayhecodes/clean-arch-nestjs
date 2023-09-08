@@ -12,7 +12,7 @@ export const databaseProvider = [
         username: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
-        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
+        entities: [join(__dirname, '../../../**', '*.entity.js')],
         migrations: [`src/migration/*.ts`],
         synchronize: true,
         logging: true,

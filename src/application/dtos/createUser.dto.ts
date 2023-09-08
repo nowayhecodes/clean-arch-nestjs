@@ -23,7 +23,7 @@ export class CreateUserDto {
   @ApiProperty()
   @IsDateString({ strict: true })
   @IsNotEmpty()
-  dob: Date;
+  dob: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -38,5 +38,5 @@ export class CreateUserDto {
 
   @ApiProperty()
   @IsOptional()
-  address?: Address[];
+  addresses?: Address[];
 }

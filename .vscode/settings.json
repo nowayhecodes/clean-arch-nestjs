@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "onboarding_dude_db",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "dasdad",
+            "database": "onboarding_db",
+            "username": "postgres",
+            "password": "postgres"
+        }
+    ]
+}
