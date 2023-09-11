@@ -8,7 +8,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from '@fastify/helmet';
 import compress from '@fastify/compress';
 
-import { AppModule } from './app.module';
+import { AppModule } from './application/app.module';
 
 import 'dotenv/config';
 

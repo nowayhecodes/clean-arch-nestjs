@@ -8,12 +8,12 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppService } from './application/app.service';
-import { User } from './domain/entities/user.entity';
-import { CreateUserDto } from './application/dtos/createUser.dto';
-import { UpdateUserDto } from './application/dtos/updateUser.dto';
-import { CreateUserCommand } from './application/commands/create-user.command';
-import { UpdateUserCommand } from './application/commands/update-user.command';
+import { AppService } from './app.service';
+import { User } from '../domain/entities/user.entity';
+import { CreateUserDto } from './dtos/createUser.dto';
+import { UpdateUserDto } from './dtos/updateUser.dto';
+import { CreateUserCommand } from './commands/create-user.command';
+import { UpdateUserCommand } from './commands/update-user.command';
 import { CommandBus } from '@nestjs/cqrs';
 
 @Controller('users')
