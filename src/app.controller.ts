@@ -8,15 +8,17 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppService } from './app.service';
+import { AppService } from './application/app.service';
 import { User } from './domain/entities/user.entity';
 import { CreateUserDto } from './application/dtos/createUser.dto';
 import { UpdateUserDto } from './application/dtos/updateUser.dto';
-
+import { CreateUserCommand } from './application/commands/create-user.command';
+import { UpdateUserCommand } from './application/commands/update-user.command';
+import { CommandBus } from '@nestjs/cqrs';
 
 @Controller('users')
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService, private readonly cmdBus: CommandBus) { }
 
   @Get()
   getUser(): Promise<User[]> {
@@ -30,16 +32,19 @@ export class AppController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.appService.createUser(createUserDto);
+  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+    const command = new CreateUserCommand(createUserDto);
+    return await this.cmdBus.execute(command);
+
   }
 
   @Patch(':id')
   @UsePipes(new ValidationPipe({ transform: true }))
-  updateUser(
+  async updateUser(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
-    return this.appService.updateUser(+id, updateUserDto);
+    const command = new UpdateUserCommand(+id, updateUserDto);
+    return await this.cmdBus.execute(command);
   }
 }
