@@ -8,9 +8,12 @@ import { recipientProvider } from './providers/recipient.provider';
 import { CreateUserHandler } from './commands/create-user.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UpdateUserHandler } from './commands/update-user.handler';
+import { GetUsersHandler } from './queries/get-users.handler';
+import { GetUserByIdHandler } from './queries/get-userbyid.handler';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [DatabaseModule, CqrsModule],
+  imports: [DatabaseModule, CqrsModule, CacheModule.register({ ttl: 60000, max: 10 })],
   controllers: [AppController],
   providers: [
     ...userProvider,
@@ -18,7 +21,9 @@ import { UpdateUserHandler } from './commands/update-user.handler';
     ...recipientProvider,
     AppService,
     CreateUserHandler,
-    UpdateUserHandler
+    UpdateUserHandler,
+    GetUsersHandler,
+    GetUserByIdHandler,
   ],
 })
 export class AppModule { }

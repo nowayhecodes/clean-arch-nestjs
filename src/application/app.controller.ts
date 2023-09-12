@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -14,20 +15,26 @@ import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { CreateUserCommand } from './commands/create-user.command';
 import { UpdateUserCommand } from './commands/update-user.command';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { GetUsersQuery } from './queries/get-users.query';
+import { GetUserByIdQuery } from './queries/get-userbyid.query';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('users')
+@UseInterceptors(CacheInterceptor)
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly cmdBus: CommandBus) { }
+  constructor(private readonly appService: AppService, private readonly cmdBus: CommandBus, private readonly queryBus: QueryBus) { }
 
   @Get()
-  getUser(): Promise<User[]> {
-    return this.appService.findAll();
+  async getUser(): Promise<User[]> {
+    const query = new GetUsersQuery();
+    return await this.queryBus.execute(query);
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): Promise<User> {
-    return this.appService.findById(+id);
+  async getUserById(@Param('id') id: string): Promise<User> {
+    const query = new GetUserByIdQuery(+id)
+    return await this.queryBus.execute(query)
   }
 
   @Post()
