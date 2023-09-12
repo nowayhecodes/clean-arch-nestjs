@@ -34,7 +34,7 @@ export class Recipient {
   })
   updatedAt: Date;
 
-  @Column("timestamp without time zone", { name: "deleteAt", nullable: true })
+  @DeleteDateColumn()
   deleteAt: Date | null;
 
   @Column("integer", { name: "addressId", nullable: true, unique: true })

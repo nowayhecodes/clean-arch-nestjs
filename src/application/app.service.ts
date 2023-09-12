@@ -16,13 +16,15 @@ export class AppService {
 
   async findById(id: number): Promise<User> {
     return this.userRepository.createQueryBuilder('user')
-      .leftJoinAndSelect('address', 'address', 'user.id = address.userId')
+      .leftJoinAndSelect('user.addresses', 'address')
+      .leftJoinAndSelect('address.recipient', 'recipient')
       .where({ id })
       .getOneOrFail()
   }
 
   async createUser(user: CreateUserDto) {
-    return this.userRepository.save(user);
+    const userData = this.userRepository.create(user)
+    return this.userRepository.save(userData);
   }
 
   async updateUser(id: number, user: UpdateUserDto) {

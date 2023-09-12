@@ -40,14 +40,10 @@ export class User {
   })
   updatedAt: Date;
 
-  @Column("timestamp without time zone", { name: "deleteAt", nullable: true })
+  @DeleteDateColumn()
   deleteAt: Date | null;
 
-  @OneToMany(() => Address, (address) => address.user)
+  @OneToMany(() => Address, (address) => address.user, { cascade: ['insert', 'update', 'soft-remove'] })
   @JoinColumn([{ name: "addresses", referencedColumnName: "id" }])
-  @Column({
-    type: 'jsonb',    
-    nullable: true
-  })
   addresses: Address[];
 }

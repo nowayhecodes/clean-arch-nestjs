@@ -27,25 +27,19 @@ export class Address {
   @Column("character varying", { name: "zipcode" })
   zipcode: string;
 
-  @Column("timestamp without time zone", {
-    name: "createdAt",
-    default: () => "now()",
-  })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column("timestamp without time zone", {
-    name: "updatedAt",
-    default: () => "now()",
-  })
+  @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column("timestamp without time zone", { name: "deleteAt", nullable: true })
+  @DeleteDateColumn()
   deleteAt: Date | null;
 
   @ManyToOne(() => User, (user) => user.addresses)
   @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
   user: User;
 
-  @OneToOne(() => Recipient, (recipient) => recipient.address)
+  @OneToOne(() => Recipient, (recipient) => recipient.address, {cascade: ['insert', 'update', 'soft-remove']})
   recipient: Recipient;
 }
