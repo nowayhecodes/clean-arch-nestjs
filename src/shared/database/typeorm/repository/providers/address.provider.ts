@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Address } from 'src/domain/entities/address.entity';
+import { Address } from '~/shared/database/typeorm/mapping/address.mapping';
 
 export const addressProvider = [
   {

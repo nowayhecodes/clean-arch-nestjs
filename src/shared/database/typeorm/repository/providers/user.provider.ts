@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { User } from 'src/domain/entities/user.entity';
+import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 
 export const userProvider = [
   {

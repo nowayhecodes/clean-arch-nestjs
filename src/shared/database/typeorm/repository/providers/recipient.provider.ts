@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Recipient } from 'src/domain/entities/recipient.entity';
+import { Recipient } from '~/shared/database/typeorm/mapping/recipient.mapping';
 
 export const recipientProvider = [
   {

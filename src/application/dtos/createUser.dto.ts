@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { Address } from 'src/domain/entities/address.entity';
+import { Address } from '~/shared/database/typeorm/mapping/address.mapping';
 import { Transform } from 'class-transformer';
 
 export class CreateUserDto {
