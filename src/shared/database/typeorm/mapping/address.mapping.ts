@@ -10,8 +10,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import { User } from './user.entity';
-import { Recipient } from './recipient.entity';
+import { User } from './user.mapping';
+import { Recipient } from './recipient.mapping';
 
 @Entity("address", { schema: "public" })
 export class Address {

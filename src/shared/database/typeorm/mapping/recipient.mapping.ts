@@ -9,7 +9,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import { Address } from './address.entity';
+import { Address } from './address.mapping';
 
 @Entity("recipient", { schema: "public" })
 export class Recipient {

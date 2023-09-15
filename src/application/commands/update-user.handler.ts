@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { UpdateUserCommand } from "./update-user.command";
-import { AppService } from "../app.service";
+import { AppService } from "../../shared/database/typeorm/repository/user-repository.adapter";
 import { User } from "~/domain/entities/user.entity";
 
 @CommandHandler(UpdateUserCommand)

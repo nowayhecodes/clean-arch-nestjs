@@ -9,8 +9,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppService } from './app.service';
-import { User } from '../domain/entities/user.entity';
+import { UserRepositoryAdapter } from '../shared/database/typeorm/repository/user-repository.adapter';
+import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { CreateUserCommand } from './commands/create-user.command';
@@ -23,7 +23,11 @@ import { CacheInterceptor } from '@nestjs/cache-manager';
 @Controller('users')
 @UseInterceptors(CacheInterceptor)
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly cmdBus: CommandBus, private readonly queryBus: QueryBus) { }
+  constructor(
+    private readonly appService: UserRepositoryAdapter,
+    private readonly cmdBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @Get()
   async getUser(): Promise<User[]> {
@@ -33,8 +37,8 @@ export class AppController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<User> {
-    const query = new GetUserByIdQuery(+id)
-    return await this.queryBus.execute(query)
+    const query = new GetUserByIdQuery(+id);
+    return await this.queryBus.execute(query);
   }
 
   @Post()
@@ -42,7 +46,6 @@ export class AppController {
   async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     const command = new CreateUserCommand(createUserDto);
     return await this.cmdBus.execute(command);
-
   }
 
   @Patch(':id')

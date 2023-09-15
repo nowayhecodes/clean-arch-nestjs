@@ -1,5 +1,5 @@
 import { QueryHandler, IQueryHandler } from "@nestjs/cqrs";
-import { AppService } from "../app.service";
+import { AppService } from "../../shared/database/typeorm/repository/user-repository.adapter";
 import { GetUsersQuery } from "./get-users.query";
 import { User } from "~/domain/entities/user.entity";
 
