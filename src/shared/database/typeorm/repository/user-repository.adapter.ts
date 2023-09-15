@@ -14,7 +14,7 @@ export class UserRepositoryAdapter {
     return this.userRepository.find();
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: string): Promise<User> {
     return this.userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.addresses', 'address')
@@ -28,7 +28,7 @@ export class UserRepositoryAdapter {
     return this.userRepository.save(userData);
   }
 
-  async updateUser(id: number, user: UpdateUserDto) {
+  async updateUser(id: string, user: UpdateUserDto) {
     await this.userRepository.update({ id }, user);
     return await this.findById(id);
   }

@@ -10,11 +10,10 @@ import {
 } from 'typeorm';
 
 import { Address } from './address.mapping';
+import { BaseMapping } from './base.mapping';
 
 @Entity("user", { schema: "public" })
-export class User {
-  @PrimaryGeneratedColumn({ type: "integer", name: "id" })
-  id: number;
+export class User extends BaseMapping {
 
   @Column("character varying", { name: "name" })
   name: string;
@@ -27,21 +26,6 @@ export class User {
 
   @Column("character varying", { name: "document" })
   document: string;
-
-  @Column("timestamp without time zone", {
-    name: "createdAt",
-    default: () => "now()",
-  })
-  createdAt: Date;
-
-  @Column("timestamp without time zone", {
-    name: "updatedAt",
-    default: () => "now()",
-  })
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deleteAt: Date | null;
 
   @OneToMany(() => Address, (address) => address.user, { cascade: ['insert', 'update', 'soft-remove'] })
   @JoinColumn([{ name: "addresses", referencedColumnName: "id" }])

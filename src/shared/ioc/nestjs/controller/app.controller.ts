@@ -36,7 +36,7 @@ export class AppController {
 
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<User> {
-    const query = new GetUserByIdQuery(+id);
+    const query = new GetUserByIdQuery(id);
     return await this.queryBus.execute(query);
   }
 
@@ -53,7 +53,7 @@ export class AppController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
-    const command = new UpdateUserCommand(+id, updateUserDto);
+    const command = new UpdateUserCommand(id, updateUserDto);
     return await this.cmdBus.execute(command);
   }
 }
