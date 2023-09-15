@@ -9,22 +9,21 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserRepositoryAdapter } from '../../../database/typeorm/repository/user-repository.adapter';
-import { User } from '~/shared/database/typeorm/mapping/user.mapping';
-import { CreateUserDto } from '../../../../application/dtos/createUser.dto';
-import { UpdateUserDto } from '../../../../application/dtos/updateUser.dto';
-import { CreateUserCommand } from '../../../../application/commands/create-user.command';
-import { UpdateUserCommand } from '../../../../application/commands/update-user.command';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GetUsersQuery } from '../../../../application/queries/get-users.query';
-import { GetUserByIdQuery } from '../../../../application/queries/get-userbyid.query';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+
+import { User } from '~/shared/database/typeorm/mapping/user.mapping';
+import { CreateUserDto } from '~/application/dtos/createUser.dto';
+import { UpdateUserDto } from '~/application/dtos/updateUser.dto';
+import { CreateUserCommand } from '~/application/commands/contracts/create-user.command';
+import { UpdateUserCommand } from '~/application/commands/contracts/update-user.command';
+import { GetUsersQuery } from '~/application/queries/contracts/get-users.query';
+import { GetUserByIdQuery } from '~/application/queries/contracts/get-userbyid.query';
 
 @Controller('users')
 @UseInterceptors(CacheInterceptor)
 export class AppController {
   constructor(
-    private readonly appService: UserRepositoryAdapter,
     private readonly cmdBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}

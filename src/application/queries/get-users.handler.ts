@@ -1,13 +1,13 @@
-import { QueryHandler, IQueryHandler } from "@nestjs/cqrs";
-import { AppService } from "../../shared/database/typeorm/repository/user-repository.adapter";
-import { GetUsersQuery } from "./get-users.query";
-import { User } from "~/domain/entities/user.entity";
+import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
+import { UserRepositoryAdapter } from '../../shared/database/typeorm/repository/user-repository.adapter';
+import { GetUsersQuery } from './contracts/get-users.query';
+import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 
 @QueryHandler(GetUsersQuery)
 export class GetUsersHandler implements IQueryHandler<GetUsersQuery> {
-    constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: UserRepositoryAdapter) {}
 
-    async execute(query: GetUsersQuery): Promise<User[]> {
-        return await this.appService.findAll()
-    }
+  async execute(query: GetUsersQuery): Promise<User[]> {
+    return await this.appService.findAll();
+  }
 }

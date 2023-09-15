@@ -1,4 +1,6 @@
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
+
 import { AppController } from './controller/app.controller';
 import { UserRepositoryAdapter } from '../../database/typeorm/repository/user-repository.adapter';
 import { DatabaseModule } from './database/database.module';
@@ -6,7 +8,6 @@ import { userProvider } from '../../database/typeorm/repository/providers/user.p
 import { addressProvider } from '../../database/typeorm/repository/providers/address.provider';
 import { recipientProvider } from '../../database/typeorm/repository/providers/recipient.provider';
 import { CreateUserHandler } from '../../../application/commands/create-user.handler';
-import { CqrsModule } from '@nestjs/cqrs';
 import { UpdateUserHandler } from '../../../application/commands/update-user.handler';
 import { GetUsersHandler } from '../../../application/queries/get-users.handler';
 import { GetUserByIdHandler } from '../../../application/queries/get-userbyid.handler';
