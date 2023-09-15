@@ -5,10 +5,10 @@ import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
-  constructor(private readonly appService: UserRepositoryAdapter) {}
+  constructor(private readonly repository: UserRepositoryAdapter) {}
 
   async execute(command: CreateUserCommand): Promise<User> {
     const { createUserDTO } = command;
-    return await this.appService.createUser(createUserDTO);
+    return await this.repository.createUser(createUserDTO);
   }
 }

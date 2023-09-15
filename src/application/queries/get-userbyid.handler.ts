@@ -5,10 +5,10 @@ import { GetUserByIdQuery } from './contracts/get-userbyid.query';
 
 @QueryHandler(GetUserByIdQuery)
 export class GetUserByIdHandler implements IQueryHandler<GetUserByIdQuery> {
-  constructor(private readonly appService: UserRepositoryAdapter) {}
+  constructor(private readonly repository: UserRepositoryAdapter) {}
 
   async execute(query: GetUserByIdQuery): Promise<User> {
     const { id } = query;
-    return await this.appService.findById(id);
+    return await this.repository.findById(id);
   }
 }

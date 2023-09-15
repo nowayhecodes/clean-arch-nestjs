@@ -5,9 +5,9 @@ import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 
 @QueryHandler(GetUsersQuery)
 export class GetUsersHandler implements IQueryHandler<GetUsersQuery> {
-  constructor(private readonly appService: UserRepositoryAdapter) {}
+  constructor(private readonly repository: UserRepositoryAdapter) {}
 
   async execute(query: GetUsersQuery): Promise<User[]> {
-    return await this.appService.findAll();
+    return await this.repository.findAll();
   }
 }

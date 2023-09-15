@@ -5,10 +5,10 @@ import { User } from '~/shared/database/typeorm/mapping/user.mapping';
 
 @CommandHandler(UpdateUserCommand)
 export class UpdateUserHandler implements ICommandHandler<UpdateUserCommand> {
-  constructor(private readonly appServive: UserRepositoryAdapter) {}
+  constructor(private readonly repository: UserRepositoryAdapter) {}
 
   async execute(command: UpdateUserCommand): Promise<User> {
     const { id, updateUserDTO } = command;
-    return await this.appServive.updateUser(id, updateUserDTO);
+    return await this.repository.updateUser(id, updateUserDTO);
   }
 }
