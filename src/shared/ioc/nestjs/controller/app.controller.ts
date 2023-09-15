@@ -9,15 +9,15 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { UserRepositoryAdapter } from '../shared/database/typeorm/repository/user-repository.adapter';
+import { UserRepositoryAdapter } from '../../../database/typeorm/repository/user-repository.adapter';
 import { User } from '~/shared/database/typeorm/mapping/user.mapping';
-import { CreateUserDto } from './dtos/createUser.dto';
-import { UpdateUserDto } from './dtos/updateUser.dto';
-import { CreateUserCommand } from './commands/create-user.command';
-import { UpdateUserCommand } from './commands/update-user.command';
+import { CreateUserDto } from '../../../../application/dtos/createUser.dto';
+import { UpdateUserDto } from '../../../../application/dtos/updateUser.dto';
+import { CreateUserCommand } from '../../../../application/commands/create-user.command';
+import { UpdateUserCommand } from '../../../../application/commands/update-user.command';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GetUsersQuery } from './queries/get-users.query';
-import { GetUserByIdQuery } from './queries/get-userbyid.query';
+import { GetUsersQuery } from '../../../../application/queries/get-users.query';
+import { GetUserByIdQuery } from '../../../../application/queries/get-userbyid.query';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('users')
