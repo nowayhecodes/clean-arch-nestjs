@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
-  onboarding_dude_api:
+  onboarding_api:
+    container_name: onboarding_api
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,7 +18,8 @@ services:
     volumes:
       - .:/home/node/workspace/onboarding_dude
 
-  onboarding_dude_db:
+  onboarding_db:
+    container_name: onboarding_db
     image: postgres:13
     environment:
       - PGDATA=/var/lib/postgresql/data
