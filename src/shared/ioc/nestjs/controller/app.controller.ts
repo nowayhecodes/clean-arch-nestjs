@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Logger,
   Param,
   Patch,
   Post,
@@ -55,5 +56,15 @@ export class AppController {
   ): Promise<User> {
     const command = new UpdateUserCommand(id, updateUserDto);
     return await this.cmdBus.execute(command);
+  }
+
+  @Post('/events')
+  async processEvent(@Body() body: any): Promise<void> {
+    Logger.warn('------------------------------------------------');
+    Logger.warn('Processing an insert or update event on database');  
+    Logger.warn('------------------------------------------------');
+    Logger.warn(body);
+    Logger.warn('Finished processing');    
+    Logger.warn('----------------------------------------');
   }
 }
