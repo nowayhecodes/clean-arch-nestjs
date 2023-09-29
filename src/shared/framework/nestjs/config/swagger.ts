@@ -8,10 +8,10 @@ import {
 export const swaggerConfig = app => {
   const configService = new ConfigService()
   const swaggerDocumentBuilder = new DocumentBuilder()
-    .addTag('Onboarding Project')
+    .addTag('Clean Arch NestJS')
     .addBearerAuth()
-    .setTitle(configService.get<string>('Onboarding Project'))
-    .setDescription(configService.get<string>('Projeto de Onboarding'))
+    .setTitle(configService.get<string>('Clean Arch Project'))
+    .setDescription(configService.get<string>('Minha abordagem sobre clean arch com NestJS'))
     .setVersion(configService.get<string>('1.0'))
     .setBasePath(configService.get<string>('http://127.0.0.1:3333/users'))
     .build()
