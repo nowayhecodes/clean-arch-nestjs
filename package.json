@@ -82,5 +82,10 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "pnpm": {
+    "overrides": {
+      "xml2js@<0.5.0": ">=0.5.0"
+    }
   }
 }

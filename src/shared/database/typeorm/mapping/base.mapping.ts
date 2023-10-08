@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import {
   BeforeInsert,
   Column,
@@ -7,7 +8,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { v4 as uuid } from 'uuid';
 import { getUTCDate } from '~/shared/common/helpers/utc-date-helpers';
 
 export class BaseMapping {
@@ -42,6 +42,6 @@ export class BaseMapping {
 
   @BeforeInsert()
   defaultUUID() {
-    this.id = this.id || uuid();
+    this.id = this.id || randomUUID();
   }
 }
